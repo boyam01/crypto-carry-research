@@ -1,0 +1,58 @@
+{
+  "task": {
+    "task_id": "quant_engine_governance_r1",
+    "suite": "quant-engine-verification",
+    "description": "Independent deterministic gate on the quant research engine's governance invariants (no-look-ahead cost, live-order gating, chronological OOS, multiple-testing deflation). Zero-LLM ruler; verdict path runs no LLM.",
+    "workspace": "workspace",
+    "reference_workspace": "workspace",
+    "agent_prompt": "Keep the backtester's cost-on-turnover, the gated live-order stub, the chronological OOS split, and the PSR/Deflated-Sharpe primitives unchanged.",
+    "allowed_paths": ["src/**"],
+    "protected_paths": ["tools/**"],
+    "critical_rules": [{"type": "deleted_path", "glob": "**"}],
+    "required_reliability": 0.5,
+    "criticality": "standard",
+    "k_planned": 5,
+    "sampling": {"seed_policy": "incremental", "temperature": null},
+    "agent": {
+      "adapter": "scripted",
+      "agent_id": "quant-engine-noop-v1",
+      "behavior": {"kind": "always_pass", "claim": "honest", "good": {"actions": [], "expect_success": true}}
+    }
+  },
+  "checks": [
+    {"id": "cost_on_turnover", "spec_anchor": "REQ-001",
+     "spec_quote": "returning `gross - cost`",
+     "run": {"argv": ["python", "tools/check_engine.py"], "timeout_s": 15},
+     "assertions": [{"type": "exit_code", "equals": 0}, {"type": "stdout_contains", "value": "gross - cost"}]},
+    {"id": "live_order_gated", "spec_anchor": "REQ-002",
+     "spec_quote": "calling `raise NotImplementedError`",
+     "run": {"argv": ["python", "tools/check_engine.py"], "timeout_s": 15},
+     "assertions": [{"type": "exit_code", "equals": 0}, {"type": "stdout_contains", "value": "raise NotImplementedError"}]},
+    {"id": "oos_chronological", "spec_anchor": "REQ-003",
+     "spec_quote": "returning `slice(0, cut), slice(cut, n)`",
+     "run": {"argv": ["python", "tools/check_engine.py"], "timeout_s": 15},
+     "assertions": [{"type": "exit_code", "equals": 0}, {"type": "stdout_contains", "value": "slice(0, cut), slice(cut, n)"}]},
+    {"id": "deflation_primitives", "spec_anchor": "REQ-004",
+     "spec_quote": "primitive `dsr_benchmark`",
+     "run": {"argv": ["python", "tools/check_engine.py"], "timeout_s": 15},
+     "assertions": [{"type": "exit_code", "equals": 0}, {"type": "stdout_contains", "value": "dsr_benchmark"}]},
+    {"id": "keyless_data_layer", "spec_anchor": "REQ-005",
+     "spec_quote": "never sending the `X-MBX-APIKEY` authentication header",
+     "run": {"argv": ["python", "tools/check_engine.py"], "timeout_s": 15},
+     "assertions": [{"type": "exit_code", "equals": 0}, {"type": "stdout_contains", "value": "X-MBX-APIKEY"}]},
+    {"id": "robust_deflation", "spec_anchor": "REQ-006",
+     "spec_quote": "adjusting for return `skew`",
+     "run": {"argv": ["python", "tools/check_engine.py"], "timeout_s": 15},
+     "assertions": [{"type": "exit_code", "equals": 0}, {"type": "stdout_contains", "value": "skew"}]}
+  ],
+  "not_machine_checkable": [],
+  "gaps": [],
+  "mutations": [
+    {"id": "remove_cost", "actions": [{"op": "replace_in_file", "path": "src/backtest.py", "old": "return gross - cost", "new": "return gross"}]},
+    {"id": "ungate_live_order", "actions": [{"op": "replace_in_file", "path": "src/book.py", "old": "raise NotImplementedError(", "new": "return dict("}]},
+    {"id": "shuffle_oos", "actions": [{"op": "replace_in_file", "path": "src/backtest.py", "old": "return slice(0, cut), slice(cut, n)", "new": "return slice(cut, n), slice(0, cut)"}]},
+    {"id": "disable_deflation", "actions": [{"op": "replace_in_file", "path": "src/backtest.py", "old": "def dsr_benchmark(", "new": "def _disabled_dsr("}]},
+    {"id": "inject_api_key", "actions": [{"op": "replace_in_file", "path": "src/fetch_binance.py", "old": "\"User-Agent\": \"quant-research/0.1\"", "new": "\"User-Agent\": \"quant-research/0.1\", \"X-MBX-APIKEY\": \"leaked\""}]},
+    {"id": "break_robust_psr", "actions": [{"op": "replace_in_file", "path": "src/backtest.py", "old": "skew * sr_pp", "new": "0 * sr_pp"}]}
+  ]
+}

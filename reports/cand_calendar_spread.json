@@ -1,0 +1,47 @@
+{
+  "candidate": "calendar_spread",
+  "family": "basis-carry",
+  "assets": [
+    "BTCUSDT",
+    "ETHUSDT"
+  ],
+  "n_pairs": 22,
+  "cost_bp_leg": 7.0,
+  "test_A": {
+    "mean_entry_slope_ann": -0.0029606857914815017,
+    "frac_upward": 0.5,
+    "chosen_dir": -1,
+    "oos_n_pairs": 9,
+    "oos_mean_realized_per_pair": -0.01791426731403646,
+    "oos_mean_annualized": -0.07185392933651985,
+    "oos_win_rate": 0.2222222222222222,
+    "oos_worst_pair": -0.05080125708580904,
+    "oos_perpair_sr": -0.7320425538402235,
+    "oos_perpair_psr": null,
+    "oos_pooled_daily_sharpe": -1.4209030251160837,
+    "oos_pooled_daily_psr": 0.002224960703221527
+  },
+  "test_B": {
+    "XS_carry_LS": {
+      "oos_sharpe": -0.7916553101103361,
+      "oos_ret_ann": -0.17859430794129558,
+      "oos_maxdd": -0.3259312689012066,
+      "oos_psr": 0.21663025419892484,
+      "turnover": 0.34030837004405806,
+      "n": 364
+    },
+    "TS_sign_carry": {
+      "oos_sharpe": 0.1484588391360004,
+      "oos_ret_ann": 0.08601183680782078,
+      "oos_maxdd": -0.5428747249362756,
+      "oos_psr": 0.5588986163943652,
+      "turnover": 0.009911894273127754,
+      "n": 364
+    }
+  },
+  "dsr_sr_star": 0.6029422887169692,
+  "verdict": "DEAD",
+  "note": "Neither calendar-spread carry nor carry-momentum clears PSR/cost/DSR OOS.",
+  "psr_gate": 0.002224960703221527,
+  "best_candidate": "TS_sign_carry"
+}

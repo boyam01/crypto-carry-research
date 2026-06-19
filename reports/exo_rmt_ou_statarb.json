@@ -1,0 +1,62 @@
+{
+  "candidate": "rmt_ou_statarb",
+  "family": "exotic-math/stat-arb",
+  "method": "RMT (Marchenko-Pastur) eigen-clean + eigenportfolio factor regression + OU/AR(1) s-score residual mean-reversion (Avellaneda-Lee 2010, factor-residual)",
+  "libs_implemented": "numpy: Marchenko-Pastur upper-edge eigen-clean of correlation matrix; eigenportfolio (1/vol-weighted eigenvectors) factor returns; per-name OLS factor regression -> idiosyncratic residual; discrete OU/AR(1) fit -> s-score.",
+  "universe": "BTC, ETH, BNB, SOL, XRP, ADA, DOGE, LTC, LINK, AVAX, DOT, ATOM, UNI, ETC, BCH, FIL, TRX, NEAR, AAVE, XLM, ALGO, SAND, MANA, AXS, FTM, THETA, EGLD, VET",
+  "universe_n": 28,
+  "n_obs": 1629,
+  "start": "2022-01-02",
+  "end": "2026-06-18",
+  "is_oos_cut": 977,
+  "train_frac": 0.6,
+  "cost_bp_leg": 10.0,
+  "best_config": {
+    "window": 90,
+    "s_bo": 2.0,
+    "s_close": 0.25,
+    "kappa_floor": 12.0,
+    "rebal": 3
+  },
+  "n_variants_tried": 432,
+  "n_variants_valid": 432,
+  "is_best": {
+    "sharpe": 0.4350341568438791,
+    "ret_ann": 0.1015639844406018,
+    "turn": 0.10603006567967332
+  },
+  "standalone": {
+    "oos_n": 652,
+    "oos_sharpe": 0.046852248167073694,
+    "oos_sharpe_gross": 0.19610186183086697,
+    "oos_sharpe_5bp": 0.12151036078776527,
+    "oos_ret_ann": 0.012763592456479086,
+    "oos_vol_ann": 0.27242219863099204,
+    "oos_maxdd": -0.5096538661102734,
+    "oos_psr": 0.5249525720107796,
+    "oos_psr_5bp": 0.5644964546176481,
+    "oos_dsr": 0.01893680237157616,
+    "dsr_sr_star": 0.0838044395964038,
+    "turnover": 0.11150287085103036
+  },
+  "overlay": {
+    "base_sharpe": 0.31588853341025797,
+    "gated_sharpe": 0.2941973574152261,
+    "base_maxdd": -0.5117513249377139,
+    "gated_maxdd": -0.3923921283004965,
+    "base_ret_ann": 0.14271520425446907,
+    "gated_ret_ann": 0.10164714156674694,
+    "gate_threshold": 0.6071428571428571
+  },
+  "role": "none",
+  "verdict": "DEAD",
+  "note": "RMT-OU residual mean-reversion dies OOS: Sharpe=0.05, PSR=0.52, DSR=0.02 (SR*=0.084); overlay no help (0.32->0.29). RMT eigen-factors do not rescue stat-arb where cointegration pairs already failed.",
+  "maxdd_illusion_flag": true,
+  "governance": {
+    "no_lookahead": "s-score from returns in (t-W, t-1]; weights shifted 1 bar.",
+    "cost": "10bp/leg on |\u0394w| across book (5bp also reported).",
+    "chronological_oos": "all knobs scanned on first 60%; last 40% reported.",
+    "deflate": "432 variants in grid; within-family DSR SR*=0.0838.",
+    "maxdd": "close-to-close market-neutral maxDD flagged as illusion."
+  }
+}

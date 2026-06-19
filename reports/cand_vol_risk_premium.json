@@ -1,0 +1,21 @@
+{
+  "key": "vol_risk_premium",
+  "family": "volatility",
+  "file": "experiments/cand_vol_risk_premium.py",
+  "implemented": true,
+  "verdict": "DEAD",
+  "market_neutral": true,
+  "universe": "10 USDT-perps 1h since 2021-01-01",
+  "n_obs": 19149,
+  "oos_sharpe": -0.9862787252566583,
+  "oos_ret_ann_pct": -4.466227734862076,
+  "psr": 0.0721607018303621,
+  "dsr": 0.02646815781660172,
+  "maxdd_pct": -12.155972905938272,
+  "turnover": 0.006504778317405609,
+  "cost_bps": 10.0,
+  "mechanism": "RV mean-reversion timing + short-gamma proxy (no options)",
+  "baseline_oos_sharpe": -0.11829259211507617,
+  "notes": "Without options there is NO option premium to harvest, so a true VRP (IV-RV) is not measurable. Route (a) delta-hedged short-gamma is circular: the 'premium' is a self-imposed vol forecast and any P&L vanishes once rehedge turnover is costed (see T2: gross relies on invented IV, net dies on cost). Route (b) RV mean-reversion is real as a stylized fact but on a market-neutral residual the RV-timing overlay does not beat a constant-exposure baseline after cost. Selected OOS Sharpe=-0.99 vs baseline -0.12; PSR=0.072; DSR SR*=0.0265 vs OOS SR_pp=-0.0105. Verdict driven by: no clean non-circular VRP instrument exists on perps.",
+  "data_caveats": "close-to-close hourly; perp closes; no options data so VRP proxied. maxDD is close-to-close (no intra-bar liq/gap)."
+}

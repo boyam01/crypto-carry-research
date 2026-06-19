@@ -1,0 +1,27 @@
+# data cache (large, regenerable from public APIs)
+data/cache/
+*.parquet
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# probity build artifacts + nested git workspace (the proposal/spec are kept; build/dist are regenerable)
+probity_gate/build/
+probity_gate/dist/
+probity_gate/workspace/.git/
+
+# os / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# keep: engine/, experiments/, reports/*.md, reports/*.json, reports/figures/*.png, probity_gate/{spec.md,proposal.json,workspace/{src,tools}}
+
+# intermediate run artifacts (regenerable)
+artifacts/

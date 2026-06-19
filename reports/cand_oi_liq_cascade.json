@@ -1,0 +1,63 @@
+{
+  "key": "oi_liq_cascade",
+  "family": "microstructure",
+  "file": "experiments/cand_oi_liq_cascade.py",
+  "implemented": true,
+  "verdict": "DEAD",
+  "universe": "BTC+ETH+SOL+HYPE+ZEC",
+  "n_obs": 200,
+  "oos_sharpe": -1.3806868073388012,
+  "oos_ret_ann_pct": -16.63246264908966,
+  "psr": 0.41783585800408113,
+  "dsr": 0.20640295511604229,
+  "sr_star_pp": 0.043489564740910015,
+  "oos_events": 13,
+  "is_params": {
+    "x": 0.05,
+    "y": 0.012,
+    "k": 4,
+    "gate": true
+  },
+  "is_events": 29,
+  "cost_bps": 5.0,
+  "turnover": 0.025,
+  "maxdd_pct": -2.533582101537424,
+  "market_neutral": false,
+  "n_trials": 54,
+  "hist_days": 20.8,
+  "per_coin": {
+    "BTC": {
+      "oos_sharpe": 3.0854020380627554,
+      "oos_ret": 0.0938681484331681,
+      "psr": 0.6841956220020784,
+      "oos_entries": 1
+    },
+    "ETH": {
+      "oos_sharpe": -11.00369265063773,
+      "oos_ret": -2.0216462483382704,
+      "psr": 0.0002465613424913712,
+      "oos_entries": 1
+    },
+    "SOL": {
+      "oos_sharpe": 5.923919927109763,
+      "oos_ret": 0.6494580034692062,
+      "psr": 0.8745819158341289,
+      "oos_entries": 1
+    },
+    "HYPE": {
+      "oos_sharpe": -2.405013155737481,
+      "oos_ret": -1.1613537318965361,
+      "psr": 0.3560055602946397,
+      "oos_entries": 6
+    },
+    "ZEC": {
+      "oos_sharpe": 7.010761633756591,
+      "oos_ret": 1.6080506958779495,
+      "psr": 0.9428947844106373,
+      "oos_entries": 4
+    }
+  },
+  "note": "PILOT (~21d): OOS Sharpe=-1.38 PSR=0.42 DSR=0.21. Fade does not survive cost/deflation. KILL.",
+  "mechanism": "OI-collapse + large 1h move => fade the cascade for k hours (forced-deleveraging exhaustion mean-reversion)",
+  "data_caveats": "ONLY ~21d Binance openInterestHist history -> PILOT; OI aligned to kline open_time by reindex+ffill; directional single-leg."
+}

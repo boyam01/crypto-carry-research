@@ -1,0 +1,21 @@
+{
+  "key": "xsec_basis_carry",
+  "family": "basis-carry",
+  "file": "experiments/cand_xsec_basis_carry.py",
+  "universe": "COIN-M quarterlies ['BTC', 'ETH', 'XRP', 'BNB', 'SOL'] expired ['250328', '250627', '250926', '251226', '260327'] (primary); USDT-M BTC/ETH sanity",
+  "n_obs": 219,
+  "market_neutral": true,
+  "turnover": 0.10730593607305935,
+  "cost_bps": 30.0,
+  "headline_strategy": "xsec_rank_neutral",
+  "oos_sharpe": 1.3401751342553132,
+  "oos_ret_ann_pct": 4.076426614418774,
+  "maxdd_pct": -0.7069636263211443,
+  "is_sharpe": 2.0100548068746904,
+  "psr": 0.870049422129652,
+  "dsr": 0.7269957668786938,
+  "sr_star_family": 0.03255605490166701,
+  "baseline_all_contango_oos_sharpe": 0.1890477032212575,
+  "selection_value_add_oos_ret_pct": 3.173269510939009,
+  "selection_value_add_psr": 0.7033258037460357
+}

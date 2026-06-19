@@ -1,0 +1,71 @@
+{
+  "key": "tda_persistence",
+  "method": "Topological Data Analysis / persistent homology (Gidea-Katz 2018)",
+  "family": "topological-data-analysis",
+  "file": "experiments/exo_tda_persistence.py",
+  "implemented": true,
+  "libs_implemented": "H0 persistence via numpy union-find over Vietoris-Rips filtration (exact single-linkage MST); persistence landscape L1/L2 norm in numpy (Bubenik); H1 is a documented PROXY (mst-gap), NOT real H1 (no gudhi/ripser).",
+  "verdict": "DEAD",
+  "role": "none",
+  "market_neutral": false,
+  "universe": "10 USDT-perps daily 2022-01-01..2026-06-18; point-cloud coins=BES",
+  "n_obs": 652,
+  "method_detail": {
+    "coins": "BES",
+    "embed": "takens_d5",
+    "window": 20,
+    "feature": "total_pers",
+    "is_feature_corr": -0.0364289525775365
+  },
+  "oos_sharpe": -0.010332940784373674,
+  "oos_ret_ann_pct": -0.46660202596244554,
+  "psr": 0.4944947829175689,
+  "dsr": 0.040036381983061926,
+  "maxdd_pct": -50.9195825908755,
+  "turnover": 0.02607361963190184,
+  "cost_bps": 5.0,
+  "overlay_base_sharpe": 0.09579321952484599,
+  "overlay_gated_sharpe": 0.1244185478647754,
+  "overlay_detail": {
+    "longBTC": {
+      "base_sharpe": 0.09579321952484599,
+      "gated_sharpe": 0.1244185478647754,
+      "base_maxdd_pct": -54.876690951100485,
+      "gated_maxdd_pct": -52.30641869196935,
+      "psr_gated": 0.5659631767484268,
+      "sel": {
+        "zwin": 120,
+        "thr": 2.0,
+        "g_low": 0.0,
+        "is_sharpe": 0.14241730337810762
+      }
+    },
+    "EWlong": {
+      "base_sharpe": -0.24407323554964344,
+      "gated_sharpe": -0.055137259885464154,
+      "base_maxdd_pct": -79.45340440314925,
+      "gated_maxdd_pct": -62.294407851793856,
+      "psr_gated": 0.47062171481435056,
+      "sel": {
+        "zwin": 250,
+        "thr": 0.5,
+        "g_low": 0.0,
+        "is_sharpe": -0.30284720835875145
+      }
+    }
+  },
+  "n_variants_tried": 240,
+  "diagnostics": {
+    "phase1_best": {
+      "coins": "BES",
+      "embed": "takens_d5",
+      "W": 20,
+      "feat": "total_pers",
+      "is_corr": -0.0364289525775365
+    },
+    "h1_proxy_oos_corr": 0.05170519825217931
+  },
+  "notes": "Gidea-Katz persistence on a sliding window of BES daily return vectors (embed=takens_d5, W=20, feat=total_pers). H0 persistence is EXACT (union-find / single-linkage MST); landscape L2 norm computed in numpy; H1 is a flagged PROXY (mst-gap), not real H1 (no gudhi). STANDALONE short-when-high: OOS Sharpe=-0.01, PSR=0.494, ret=-0.5%/yr -> no standalone alpha. OVERLAY on long-BTC: base Sharpe=0.10 -> gated 0.12 (Delta=+0.03, maxDD -54.9% -> -52.3%); OVERLAY on EW-long: Delta Sharpe=+0.19. IS feature-config corr(feat,fwd-ret)=-0.036. 240 variants tried; within-family DSR SR*=0.0400 vs standalone OOS SR_pp=-0.0005. H1-proxy OOS corr=+0.052. PRIOR holds: directional persistence-spike trading is overfit-prone; the honest read is whether it helps as a risk overlay. close-to-close daily maxDD is an illusion (no intrabar gap/liq).",
+  "data_caveats": "Daily close-to-close USDT-perp futures; maxDD is close-to-close (no intrabar gap/liquidation -> optimistic). H1 is a proxy, not genuine 1-dim homology. Per-window z-standardization of the point cloud uses only in-window data (causal). Feature shifted >=1 bar before trading.",
+  "runtime_sec": 388.4
+}

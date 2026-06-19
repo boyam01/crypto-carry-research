@@ -1,0 +1,42 @@
+{
+  "key": "optimal_transport_regime",
+  "family": "optimal-transport/regime",
+  "file": "experiments/exo_optimal_transport_regime.py",
+  "method": "1-D Wasserstein-1 earth-mover distance between recent vs prior return-distribution windows (per-coin and cross-coin); de-risk overlay + standalone long-vol/directional.",
+  "implemented": true,
+  "verdict": "DEAD",
+  "role": "none",
+  "market_neutral": false,
+  "universe": "14 USDT-perps 1d since 2022-01-01 (1630 bars)",
+  "n_obs": 652,
+  "oos_sharpe": 0.4390521925924563,
+  "oos_ret_ann_pct": 25.570775568301094,
+  "psr": 0.72072366814643,
+  "dsr": 0.06170951834118593,
+  "maxdd_pct": -61.3451572914006,
+  "turnover": 0.14263803680981596,
+  "cost_bps": 5.0,
+  "n_variants_tried": 90,
+  "overlay_base_sharpe": 0.19152122573031416,
+  "overlay_gated_sharpe": 0.4390521925924563,
+  "libs_implemented": "wasserstein1 (exact 1-D earth-mover via sorted-quantile L1, equal-size fast path + unequal-size trapezoid quantile integration); causal rolling W-distance series (per-coin & cross-coin pairwise-avg); causal z-score; long-variance replication payoff. All numpy/pandas only.",
+  "notes": "1-D Wasserstein-1 (earth-mover) regime detector, implemented from scratch (sorted-quantile L1). Tested as DE-RISK OVERLAY (primary) and standalone. PREMISE holds weakly: W-distance has positive rank-corr with next-5d realized vol (raw flavour ~ vol-clustering tautology; standardized/shape flavour weaker). OVERLAY headline=EWL: gating the base book when cross-coin W-z spikes gives OOS Sharpe +0.44 (gated) vs +0.19 (un-gated), maxDD -61.3% vs -68.3%; improves=YES; PSR_gated=0.721. STANDALONE best=direction OOS Sharpe=+0.89 PSR=0.878. n_variants_tried=90, DSR SR*=0.0617. ABLATION (key): vs a TRIVIAL realized-vol gate, W beats RV-gate = BTC:False EWL:True (W +0.44 vs RV +0.29). Most of the de-risk 'benefit' is the well-known fact that vol-spikes precede more vol; the Wasserstein math adds little over a one-line realized-vol gate, and after deflation it is fragile. close-to-close daily maxDD ignores intrabar liq/gap.",
+  "data_caveats": "close-to-close daily futures closes; maxDD is close-to-close (no intrabar liq/gap) -> overstates calm; MATICUSDT dropped (delisted mid-sample, survivorship). Premise rank-corr vs fwd vol is diagnostic (uses future data) and NOT traded. Overlay base book is long-beta (directional), not market-neutral.",
+  "no_lookahead_check": true,
+  "overlay_btc_improves": false,
+  "overlay_ewl_improves": true,
+  "standalone_longvol_sharpe": 0.196180506227707,
+  "standalone_direction_sharpe": 0.891719239540246,
+  "ablation_w_beats_rvgate": {
+    "BTC": {
+      "w_sharpe": 0.02197698765975107,
+      "rv_sharpe": 0.24023986472110126,
+      "w_beats_rv": false
+    },
+    "EWL": {
+      "w_sharpe": 0.4390521925924563,
+      "rv_sharpe": 0.28851699918690965,
+      "w_beats_rv": true
+    }
+  }
+}

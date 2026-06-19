@@ -1,0 +1,10 @@
+# Tested on Python 3.10. Pinned to the versions this project was validated against.
+numpy==1.26.4
+pandas==2.2.0
+scipy==1.15.3
+scikit-learn==1.7.2
+pyarrow==23.0.0
+requests==2.31.0
+matplotlib>=3.7        # charts / showcase figures only
+# stdlib used elsewhere: urllib, ssl, json, zipfile, io, pathlib
+# all market data is fetched from PUBLIC, keyless, read-only exchange endpoints.

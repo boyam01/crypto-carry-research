@@ -1,0 +1,42 @@
+
+=== 1d panel: 1629 bars x 14 coins (2022-01-02 -> 2026-06-18) | IS=977 OOS=652 ===
+  [z>=1.5] coupling mean=0.00265 density mean=0.148
+     z>=1.5 sink=0.3 H-A: IS_shrp= -1.13 OOS_shrp=  0.16 OOS_ret=   4.1% turn=0.40 PSR=0.591
+     z>=1.5 sink=0.3 H-B: IS_shrp= -0.28 OOS_shrp= -0.76 OOS_ret= -19.7% turn=0.40 PSR=0.057
+     z>=1.5 sink=0.5 H-A: IS_shrp= -1.68 OOS_shrp= -1.08 OOS_ret= -19.4% turn=0.56 PSR=0.047
+     z>=1.5 sink=0.5 H-B: IS_shrp= -0.08 OOS_shrp= -0.25 OOS_ret=  -4.5% turn=0.56 PSR=0.374
+  [z>=2.0] coupling mean=0.00156 density mean=0.080
+     z>=2.0 sink=0.3 H-A: IS_shrp= -0.92 OOS_shrp= -0.25 OOS_ret=  -5.7% turn=0.49 PSR=0.373
+     z>=2.0 sink=0.3 H-B: IS_shrp= -0.30 OOS_shrp= -0.64 OOS_ret= -14.6% turn=0.49 PSR=0.174
+     z>=2.0 sink=0.5 H-A: IS_shrp= -1.38 OOS_shrp= -1.64 OOS_ret= -30.2% turn=0.63 PSR=0.008
+     z>=2.0 sink=0.5 H-B: IS_shrp= -0.23 OOS_shrp=  0.08 OOS_ret=   1.5% turn=0.63 PSR=0.543
+  OVERLAY longBTC gate q=0.8: base OOS shrp=0.32 dd=-51.2% -> gated shrp=0.32 dd=-51.2% (d_shrp=+0.00) PSRg=0.666
+  OVERLAY longBTC gate q=0.9: base OOS shrp=0.32 dd=-51.2% -> gated shrp=0.32 dd=-51.2% (d_shrp=+0.00) PSRg=0.666
+  OVERLAY EWbasket gate q=0.8: base OOS shrp=0.20 dd=-68.3% -> gated shrp=0.20 dd=-68.3% (d_shrp=+0.00) PSRg=0.603
+  OVERLAY EWbasket gate q=0.9: base OOS shrp=0.20 dd=-68.3% -> gated shrp=0.20 dd=-68.3% (d_shrp=+0.00) PSRg=0.603
+
+=== 8h panel: 4889 bars x 14 coins (2022-01-01 -> 2026-06-18) | IS=2933 OOS=1956 ===
+  [z>=1.5] coupling mean=0.00265 density mean=0.422
+     z>=1.5 sink=0.3 H-A: IS_shrp= -1.11 OOS_shrp= -1.24 OOS_ret=  -8.8% turn=0.26 PSR=0.050
+     z>=1.5 sink=0.3 H-B: IS_shrp= -2.06 OOS_shrp= -1.41 OOS_ret= -10.0% turn=0.26 PSR=0.030
+     z>=1.5 sink=0.5 H-A: IS_shrp= -1.05 OOS_shrp= -2.06 OOS_ret= -15.7% turn=0.38 PSR=0.007
+     z>=1.5 sink=0.5 H-B: IS_shrp= -3.25 OOS_shrp= -1.77 OOS_ret= -13.5% turn=0.38 PSR=0.006
+  [z>=2.0] coupling mean=0.00204 density mean=0.320
+     z>=2.0 sink=0.3 H-A: IS_shrp= -1.99 OOS_shrp= -2.53 OOS_ret= -19.8% turn=0.31 PSR=0.000
+     z>=2.0 sink=0.3 H-B: IS_shrp= -1.25 OOS_shrp= -0.59 OOS_ret=  -4.6% turn=0.31 PSR=0.216
+     z>=2.0 sink=0.5 H-A: IS_shrp= -2.04 OOS_shrp= -2.85 OOS_ret= -20.9% turn=0.42 PSR=0.000
+     z>=2.0 sink=0.5 H-B: IS_shrp= -2.46 OOS_shrp= -1.99 OOS_ret= -14.5% turn=0.42 PSR=0.004
+  OVERLAY longBTC gate q=0.8: base OOS shrp=0.32 dd=-51.7% -> gated shrp=0.32 dd=-51.7% (d_shrp=+0.00) PSRg=0.663
+  OVERLAY longBTC gate q=0.9: base OOS shrp=0.32 dd=-51.7% -> gated shrp=0.32 dd=-51.7% (d_shrp=+0.00) PSRg=0.663
+  OVERLAY EWbasket gate q=0.8: base OOS shrp=0.17 dd=-68.5% -> gated shrp=0.17 dd=-68.5% (d_shrp=+0.00) PSRg=0.589
+  OVERLAY EWbasket gate q=0.9: base OOS shrp=0.17 dd=-68.5% -> gated shrp=0.17 dd=-68.5% (d_shrp=+0.00) PSRg=0.589
+
+=== BEST STANDALONE: 1d [z1.5_sink0.3_HA] ===
+    OOS Sharpe=0.16 ret=4.1% maxDD=-19.2% turn=0.40
+    PSR=0.591 DSR(vs SR*=0.0533)=0.106 [16 trials]
+
+=== BEST OVERLAY: 1d longBTC q=0.8 ===
+    base OOS Sharpe=0.32 (dd=-51.2%) -> gated=0.32 (dd=-51.2%) d=+0.00 PSRg=0.666
+
+=== VERDICT = DEAD | role = none ===
+wrote D:\量化交易CLAUDE\reports\exo_transfer_entropy_network.json

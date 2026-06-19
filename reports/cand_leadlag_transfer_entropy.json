@@ -1,0 +1,51 @@
+{
+  "generated": "2026-06-18T16:28:16.549462+00:00",
+  "start": "2022-01-01",
+  "cost_bps": 5.0,
+  "train_frac": 0.6,
+  "max_lag": 3,
+  "te_z_gate": 2.0,
+  "xc_gate": 0.05,
+  "runs": [
+    {
+      "config": "4h",
+      "mode": "directional",
+      "ppy": 2190.0,
+      "n_qual": 0,
+      "qual": [],
+      "OOS": null,
+      "OOS_psr": null
+    },
+    {
+      "config": "4h",
+      "mode": "BTC-hedged(MN)",
+      "ppy": 2190.0,
+      "n_qual": 0,
+      "qual": [],
+      "OOS": null,
+      "OOS_psr": null
+    },
+    {
+      "config": "1d",
+      "mode": "directional",
+      "ppy": 365.0,
+      "n_qual": 0,
+      "qual": [],
+      "OOS": null,
+      "OOS_psr": null
+    },
+    {
+      "config": "1d",
+      "mode": "BTC-hedged(MN)",
+      "ppy": 365.0,
+      "n_qual": 0,
+      "qual": [],
+      "OOS": null,
+      "OOS_psr": null
+    }
+  ],
+  "n_trials": 36,
+  "sr_star_pp": 0.1139282396237189,
+  "best": null,
+  "verdict": "DEAD"
+}

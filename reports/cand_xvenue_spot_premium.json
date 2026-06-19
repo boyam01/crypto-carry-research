@@ -1,0 +1,81 @@
+{
+  "key": "xvenue_spot_premium",
+  "family": "cross-venue",
+  "file": "experiments/cand_xvenue_spot_premium.py",
+  "implemented": true,
+  "verdict": "MARGINAL",
+  "market_neutral": false,
+  "best": "B:BTC:Ztilt",
+  "oos_sharpe": 1.7466,
+  "oos_ret_ann_pct": 63.6351,
+  "psr": 0.9466,
+  "maxdd_pct": -18.3037,
+  "turnover": 0.21037,
+  "dsr_sr_star_pp_family": 0.05999,
+  "dsr_sr_star_a_pp": 0.30736,
+  "dsr_sr_star_b_pp": 0.05999,
+  "beats_dsr": true,
+  "cost_bps": 5.0,
+  "borrow_bp_per_day": 3.0,
+  "universe": "BTC,ETH x Binance/Coinbase/Kraken daily",
+  "n_obs": 289,
+  "part_a": {
+    "BTC:coinbase-binance": {
+      "mean_bp": -1.07,
+      "half_life_d": 4.374,
+      "oos_sharpe_borrow": -22.442,
+      "oos_sharpe_noborrow": -10.03,
+      "psr_borrow": 0.0
+    },
+    "BTC:kraken-binance": {
+      "mean_bp": 0.005,
+      "half_life_d": 0.722,
+      "oos_sharpe_borrow": -23.654,
+      "oos_sharpe_noborrow": -18.072,
+      "psr_borrow": 0.0
+    },
+    "BTC:coinbase-kraken": {
+      "mean_bp": -1.074,
+      "half_life_d": 1.915,
+      "oos_sharpe_borrow": -17.293,
+      "oos_sharpe_noborrow": -9.351,
+      "psr_borrow": 0.0
+    },
+    "ETH:coinbase-binance": {
+      "mean_bp": -1.042,
+      "half_life_d": 4.251,
+      "oos_sharpe_borrow": -21.174,
+      "oos_sharpe_noborrow": -9.717,
+      "psr_borrow": 0.0
+    },
+    "ETH:kraken-binance": {
+      "mean_bp": 0.044,
+      "half_life_d": 0.723,
+      "oos_sharpe_borrow": -15.079,
+      "oos_sharpe_noborrow": -10.563,
+      "psr_borrow": 0.0
+    },
+    "ETH:coinbase-kraken": {
+      "mean_bp": -1.086,
+      "half_life_d": 1.188,
+      "oos_sharpe_borrow": -12.199,
+      "oos_sharpe_noborrow": -6.657,
+      "psr_borrow": 0.0
+    }
+  },
+  "part_b": {
+    "BTC": {
+      "corr_contemp": 0.2769,
+      "corr_next": 0.0699,
+      "ls_oos_sharpe": 1.416,
+      "lf_oos_sharpe": -0.169
+    },
+    "ETH": {
+      "corr_contemp": 0.2266,
+      "corr_next": 0.0665,
+      "ls_oos_sharpe": 1.715,
+      "lf_oos_sharpe": -0.072
+    }
+  },
+  "notes": "Cross-venue spot premium BTC/ETH on Binance(USDT)/Coinbase(USD)/Kraken(USDT), 721 common daily bars 2024-06 to 2026-06 (Kraken OHLC only returns ~720 recent candles -> window is short, single regime). (a) MARKET-NEUTRAL convergence harvest FAILS hard: spreads are tiny (mean -1bp, std 4-9bp) and dominated by a slow USD/USDT stablecoin-basis offset, NOT a fast mean-reverting edge; the demeaned z-revert trade has NEGATIVE OOS Sharpe even before borrow (-7 to -18) -- daily noise + 2-leg taker swamp the few-bp signal, and a real spot SHORT needs daily borrow (~3bp/d) which makes it far worse. (b) Coinbase premium is mostly a CONTEMPORANEOUS co-move (corr(prem_t,ret_t)~+0.25 = it IS the move); next-day predictive corr is only ~+0.07. A directional z-tilt L/S overlay shows OOS Sharpe~1.7 PSR=0.95, but it is FRAGILE: (i) the signal is a slow autocorrelated LEVEL -- extra-lagging it 2-3 bars does not decay performance, proving it is not a genuine next-day predictor but a persistent-state directional bet; (ii) it barely beats plain 1-day momentum; (iii) directional momentum/reversal have ALL died in prior tests here; (iv) only ~288 OOS bars in one 2024-26 regime. Not market-neutral, not robust. Family DSR SR*=1.15a, beats=True. Fatal real-world frictions: spot-short BORROW + stablecoin-basis contamination (part a); regime/momentum-proxy fragility (part b)."
+}

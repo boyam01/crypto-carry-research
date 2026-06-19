@@ -1,0 +1,32 @@
+{
+  "candidate": "tod_seasonality",
+  "family": "seasonality",
+  "universe": "10 USDT-M perps, 1h bars 2022-01-01->now",
+  "n_obs": 15645,
+  "ppy": 8760,
+  "cost_bps": 5.0,
+  "train_frac": 0.6,
+  "headline_design": "C_market_neutral_cross_sectional",
+  "oos_sharpe": -28.73223021060131,
+  "oos_ret_ann_pct": -453.1357716902387,
+  "oos_maxdd_pct": -99.97021849282748,
+  "psr": 1.6870504954085808e-228,
+  "dsr_srstar": 0.1039975088543513,
+  "oos_sr_pp": -0.30698509119924083,
+  "beats_dsr": false,
+  "leg_turnover_per_bar": 1.0682426557498466,
+  "market_neutral": true,
+  "pooled_directional": {
+    "k": 1,
+    "oos_sharpe": -2.7572058610112418,
+    "oos_ret_pct": -45.71541070474877,
+    "psr": 0.0017476814879581405,
+    "gross_oos_sharpe": -0.5579418957973282,
+    "turnover": 0.08334931287951422
+  },
+  "per_coin_median_oos_sharpe": -1.961372106848782,
+  "settlement_oos_sharpe": -4.632868800964575,
+  "settlement_psr": 7.554129719011722e-11,
+  "verdict": "DEAD",
+  "notes": "Time-of-day schedule is intrinsically high-turnover (enter/exit daily). Market-neutral cross-sectional variant (C) is the only governance-preferred design. Net-of-cost OOS reported; gross shown to expose cost drag. Deflated across the 24-hour (x coin) family via DSR."
+}
