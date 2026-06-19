@@ -1,0 +1,53 @@
+{
+  "example_only": true,
+  "portfolio": {
+    "target_notional_usd": 1000000,
+    "capacity_safety_multiple": 2.0,
+    "selected_window": "00:00-08:00 UTC",
+    "required_evidence": ["timed_depth", "fill"],
+    "required_gates": ["watch_gate", "risk_gate", "ops_gate", "venue_schema_gate"],
+    "evidence_requirements": {
+      "timed_depth": {
+        "require_certified": true,
+        "require_lcb": true,
+        "require_window": true,
+        "min_samples": 100,
+        "min_coverage": 0.95
+      },
+      "fill": {
+        "require_certified": true,
+        "require_lcb": true,
+        "min_samples": 100,
+        "allowed_modes": ["replay", "shadow", "observed"]
+      }
+    }
+  },
+  "gates": {
+    "watch_gate": "MISSING",
+    "risk_gate": "PASS",
+    "ops_gate": "PASS",
+    "venue_schema_gate": "MISSING"
+  },
+  "sleeves": [
+    {
+      "name": "cvar_funding_carry",
+      "weight": 0.7,
+      "research_gate": "PASS",
+      "evidence": {
+        "current_depth": {"status": "MISSING"},
+        "timed_depth": {"status": "MISSING"},
+        "fill": {"status": "MISSING"}
+      }
+    },
+    {
+      "name": "coin_m_basis",
+      "weight": 0.3,
+      "research_gate": "PASS",
+      "evidence": {
+        "current_depth": {"status": "MISSING"},
+        "timed_depth": {"status": "MISSING"},
+        "fill": {"status": "MISSING"}
+      }
+    }
+  ]
+}
