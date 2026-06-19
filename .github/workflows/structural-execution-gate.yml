@@ -1,0 +1,43 @@
+name: structural-execution-gate
+
+on:
+  push:
+    branches:
+      - feature/structural-execution-gate
+  pull_request:
+    paths:
+      - engine/structural_execution_probe.py
+      - tests/test_structural_execution_probe.py
+      - reports/STRUCTURAL_EXECUTION_GATE_SPEC.md
+      - reports/structural_execution_manifest.example.json
+      - .github/workflows/structural-execution-gate.yml
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Unit tests
+        run: python -m unittest discover -s tests -p 'test_structural_execution_probe.py' -v
+      - name: Syntax check
+        run: python -m compileall -q engine tests
+      - name: Closed-by-default example
+        run: |
+          python engine/structural_execution_probe.py \
+            reports/structural_execution_manifest.example.json \
+            --json-out /tmp/structural_execution_gate.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          report = json.loads(Path('/tmp/structural_execution_gate.json').read_text())
+          assert report['deploy_gate'] == 'CLOSED', report
+          assert report['deployable_count'] == 0, report
+          assert report['blocker_matrix'], report
+          PY
