@@ -21,6 +21,7 @@ from engine.basis_carry_live import PARAMS as P
 
 COINS = ["BTCUSDT", "ETHUSDT"]
 CODES = ["250328", "250627", "250926", "251226", "260327", "260626", "260925"]
+COST_RT_BP = 30.0   # basis-leg round-trip cost (both spot+fut legs), charged at entry & exit/roll
 
 
 def expiry(c):
@@ -34,6 +35,7 @@ def coin_stream(coin, start_ms, end_ms):
     idx = spot.index
     basis_ret = pd.Series(0.0, index=idx)
     in_basis = pd.Series(False, index=idx)
+    held_code = pd.Series(index=idx, dtype=object)   # which contract holds each day (for cost timing)
     for c in CODES:
         try:
             f = fb.klines(f"{coin}_{c}", "1d", start_ms, end_ms, futures=True)["close"]
@@ -55,7 +57,13 @@ def coin_stream(coin, start_ms, end_ms):
         br = (sret.reindex(f.index) - fret)       # delta-neutral basis carry daily
         for ix in fidx:
             if ix in basis_ret.index and not in_basis[ix]:   # first qualifying contract wins the day
-                basis_ret[ix] = br.get(ix, 0.0); in_basis[ix] = True
+                basis_ret[ix] = br.get(ix, 0.0); in_basis[ix] = True; held_code[ix] = c
+    # charge basis-leg round-trip cost (spot+fut) at each contract's entry and exit/roll day
+    for c in held_code.dropna().unique():
+        days = held_code.index[held_code == c]
+        if len(days):
+            basis_ret[days[0]] -= COST_RT_BP / 1e4 / 2     # entry leg-in (15bp)
+            basis_ret[days[-1]] -= COST_RT_BP / 1e4 / 2    # exit / roll (15bp)
     # funding-carry satellite for non-basis days
     panel = ce.panel([coin], start_ms, end_ms)
     fund_daily = pd.Series(0.0, index=idx)

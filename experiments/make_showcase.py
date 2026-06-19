@@ -167,9 +167,9 @@ def main():
              ha="center", va="top", fontsize=9, color=SURV, fontweight="bold")
 
     # OOS Sharpe annotation box, anchored cleanly inside the OOS band (lower-right)
-    txt = (f"OOS Sharpe $\\approx$ {d['oos_sr']:.0f}\n"
+    txt = (f"OOS Sharpe $\\approx$ {d['oos_sr']:.1f}\n"
            f"OOS return = +{d['oos_ret']*100:.1f}%/yr (unlev)\n"
-           f"OOS max DD = {d['oos_dd']*100:.2f}%")
+           f"OOS max DD = {d['oos_dd']*100:.2f}% (close-to-close)")
     ax2.text(0.965, 0.045, txt, transform=ax2.transAxes,
              ha="right", va="bottom", fontsize=9.6, color=INK, fontweight="bold",
              bbox=dict(boxstyle="round,pad=0.5", fc="white", ec=SURV, lw=1.4, alpha=0.96),
@@ -180,9 +180,9 @@ def main():
     leg.get_frame().set_linewidth(0.8)
 
     ax2.text(0.5, -0.165,
-             "BTC + ETH quarterly cash-and-carry (delta-neutral) + funding-carry satellite | costs charged | "
-             f"{idx[0].date()}..{idx[-1].date()} | settlement-locked convergence, 12/12 contracts positive",
-             transform=ax2.transAxes, ha="center", va="top", fontsize=7.9, color=MUT)
+             "BTC + ETH quarterly cash-and-carry (delta-neutral) + funding-carry satellite | basis-leg costs charged | "
+             f"{idx[0].date()}..{idx[-1].date()} | convergence-anchored, exits 5d pre-delivery (residual roll/terminal-basis risk)",
+             transform=ax2.transAxes, ha="center", va="top", fontsize=7.6, color=MUT)
 
     out = ROOT / "reports" / "showcase.png"
     fig.savefig(out, dpi=170, facecolor="white", bbox_inches="tight")
